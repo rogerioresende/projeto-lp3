@@ -1,0 +1,16 @@
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 32px;
+}
+.card-acesso {
+  text-align: center;
+  padding-left: 250px;
+  padding-top: 100px;
+}
+
+.card-acesso div{
+  background-color: aqua;
+  width: 300px;
+  height: 300px;
+  padding-top: 130px;
+  border-radius: 5px;
+}

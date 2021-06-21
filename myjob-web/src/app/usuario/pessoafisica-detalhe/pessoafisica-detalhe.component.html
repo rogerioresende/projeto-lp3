@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header">
+    Manutenção das Pessoas Cadastradas
+  </div>
+  <div class="card-body">
+    <div class="card-container">
+      <div>
+        <form [formGroup]="formPessoa" (ngSubmit)="onSubmit"  class="form-exemplo">
+          <div style="display: none">
+            <mat-form-field class="example-full-width">
+              <mat-label>IDPESS</mat-label>
+              <input matInput  formControlName="idEmp">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Nome</mat-label>
+            <input type="text" matInput placeholder="Ex. Carlos" formControlName="nome"
+                   [errorStateMatcher]="matcher"
+                   required>
+            <mat-error *ngIf="getControl.nome.hasError('nome') && !getControl.nome.hasError('required')">
+              Por favor entre com nome válido!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>CPF</mat-label>
+            <input type="text" matInput placeholder="Ex: 999.999.999-99"  [errorStateMatcher]="matcher"
+                   mask="000.000.000-99" required  formControlName="cpf">
+            <mat-error *ngIf="getControl.cpf.hasError('cpf') && !getControl.cpf.hasError('required')">
+              Por favor entre com cpf válido!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Sexo</mat-label>
+            <input type="text" matInput placeholder="Ex. Masculino" formControlName="sexo"
+                   [errorStateMatcher]="matcher"
+                   required>
+            <mat-error *ngIf="getControl.sexo.hasError('sexo') && !getControl.sexo.hasError('required')">
+              Por favor entre com nome válido!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Idade</mat-label>
+            <input type="number" matInput placeholder="Ex:32"  [errorStateMatcher]="matcher"
+                   mask="" required  formControlName="cpf">
+            <mat-error *ngIf="getControl.idade.hasError('idade') && !getControl.idade.hasError('required')">
+              Por favor entre uma idade válida!
+            </mat-error>
+          </mat-form-field>
+          <hr>
+          <button mat-raised-button type="submit" (click)="onSubmit()" color="primary"> Salvar </button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
