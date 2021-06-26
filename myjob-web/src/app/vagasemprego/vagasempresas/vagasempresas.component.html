@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="card-header">
+    <h1>
+      Listagem das Vagas de Emprego
+    </h1>
+  </div>
+  <br>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- idVaga Column -->
+    <ng-container matColumnDef="idVaga">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let vagasemprego"> {{vagasemprego.idVaga}} </td>
+    </ng-container>
+
+    <!-- Nome Column -->
+    <ng-container matColumnDef="nomeEmp">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let vagasemprego"> {{vagasemprego.nomeEmp}} </td>
+    </ng-container>
+
+    <!-- Nivel Escol Column -->
+    <ng-container matColumnDef="nivelEsco">
+      <th mat-header-cell *matHeaderCellDef> Nivel Escol </th>
+      <td mat-cell *matCellDef="let vagasemprego"> {{vagasemprego.nivelEsco}} </td>
+    </ng-container>
+
+    <!-- Nivel Tecnico Column -->
+    <ng-container matColumnDef="nivelTec">
+      <th mat-header-cell *matHeaderCellDef> Nivel Tecnico </th>
+      <td mat-cell *matCellDef="let vagasemprego"> {{vagasemprego.nivelTec}} </td>
+    </ng-container>
+
+    <!-- Especificação Column -->
+    <ng-container matColumnDef="espVaga">
+      <th mat-header-cell *matHeaderCellDef> Especificação </th>
+      <td mat-cell *matCellDef="let vagasemprego"> {{vagasemprego.espVaga}} </td>
+    </ng-container>
+
+    <!-- Ações -->
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
+      <td mat-cell *matCellDef="let vagas">
+        <div>
+          <button mat-button color= "primary" style="margin-right: 5px" (click)="editarVagasEmprego(vagas)">Editar</button>
+          <button mat-button color= "warn" (click)="deletarVagaEmprego(vagas)">Excluir</button>
+        </div>
+      </td>
+    </ng-container>
+       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

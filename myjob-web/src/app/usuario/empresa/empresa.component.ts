@@ -20,7 +20,6 @@ export class EmpresaComponent implements OnInit {
   displayedColumns: string[] = ['idEmp', 'razaoSocial', 'nomeFant', 'cnpj', 'acoes'];
 
   empresa: EmpresaDto[];
-
   dataSource;
 
   ngOnInit(): void {
@@ -35,5 +34,15 @@ export class EmpresaComponent implements OnInit {
     cadastrar(): void {
       this.router.navigate(['/empresa-detalhe']);
     }
-
+  deletarEmpresa(empresa: EmpresaDto): void {
+    this.empresaService.deletarEmpresa(empresa.idEmp).subscribe(dados => {
+      this.router.navigate(['/empresa-detalhe'])
+        .then(() => {
+          window.location.reload();
+        });
+    });
   }
+  }
+
+
+

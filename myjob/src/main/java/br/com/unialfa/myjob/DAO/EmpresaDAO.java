@@ -1,5 +1,7 @@
 package br.com.unialfa.myjob.DAO;
 
+import br.com.unialfa.myjob.domain.Usuario;
+
 public class EmpresaDAO {
 
     private String razaoSocial;
@@ -7,6 +9,15 @@ public class EmpresaDAO {
     private String cnpj;
     private long cadastroLogin_id;
     private long vagasEmprego_idVaga;
+    private Usuario usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public long getVagasEmprego_idVaga() {
         return vagasEmprego_idVaga;

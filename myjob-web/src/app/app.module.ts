@@ -13,6 +13,9 @@ import {UsuarioModule} from './usuario/usuario.module';
 import {CadastroModule} from './cadastro/cadastro.module';
 import {HomeModule} from './home/home.module';
 import {AcessoModule} from './acesso/acesso.module';
+import {MatTableModule} from '@angular/material/table';
+import {VagasempregoModule} from './vagasemprego/vagasemprego.module';
+
 
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -21,21 +24,23 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
   declarations: [
     AppComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatSliderModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    NgxMaskModule.forRoot(),
-    RouterModule,
-    AppRoutingModule,
-    LoginModule,
-    UsuarioModule,
-    CadastroModule,
-    HomeModule,
-    AcessoModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatSliderModule,
+        HttpClientModule,
+        MatSnackBarModule,
+        NgxMaskModule.forRoot(),
+        RouterModule,
+        AppRoutingModule,
+        LoginModule,
+        UsuarioModule,
+        CadastroModule,
+        HomeModule,
+        AcessoModule,
+        MatTableModule,
+        VagasempregoModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

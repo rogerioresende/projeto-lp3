@@ -24,6 +24,17 @@ public class Usuario implements Serializable {
     @OneToOne(cascade=CascadeType.ALL)
     private Endereco endereco;
 
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    @OneToOne(cascade=CascadeType.ALL)
+    private Empresa empresa;
+
     public long getId() {
         return id;
     }

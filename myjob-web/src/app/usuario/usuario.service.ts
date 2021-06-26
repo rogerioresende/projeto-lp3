@@ -7,6 +7,8 @@ import {catchError, map} from 'rxjs/operators';
 import {EmpresaDto} from '../../model/empresa-dto';
 import {PessoafisicaDto} from '../../model/pessoafisica-dto';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +17,8 @@ export class UsuarioService {
   constructor(
     private httpCliente: HttpClient,
     private snackbar: MatSnackBar
-  ) { }
+  ) {
+  }
 
   empresa: EmpresaDto[];
   pessoafisica: PessoafisicaDto[];
@@ -29,8 +32,10 @@ export class UsuarioService {
 
   cadastrarEmpresa(empresa: EmpresaDto): Observable<EmpresaDto> {
     const url = `${environment.config.URL_API}/empresa/add`;
-    empresa.usuario.email = localStorage.getItem('email');
-    empresa.usuario.senha = localStorage.getItem('senha');
+    empresa.usuario = {
+      email: localStorage.getItem('email_acesso'),
+      senha: localStorage.getItem('senha_acesso')
+    };
     return this.httpCliente.post<EmpresaDto>(url, empresa).pipe(
       map(obj => obj),
       catchError((e) => this.errorHandler(e))
@@ -66,35 +71,47 @@ export class UsuarioService {
       catchError((e) => this.errorHandler(e))
     );
   }
+
   listarPessoa(): Observable<PessoafisicaDto[]> {
-  const url = `${environment.config.URL_API}/pessoaFisica/`;
-  return this.httpCliente.get<PessoafisicaDto[]>(url).pipe(
-    map((pessoafisica) => pessoafisica)
-  );
-}
+    const url = `${environment.config.URL_API}/pessoaFisica/`;
+    return this.httpCliente.get<PessoafisicaDto[]>(url).pipe(
+      map((pessoafisica) => pessoafisica)
+    );
+  }
 
   cadastrarPessoaFisica(pessoafisica: PessoafisicaDto): Observable<PessoafisicaDto> {
-  const url = `${environment.config.URL_API}/pessoaFisica/add`;
-  pessoafisica.usuario.email = localStorage.getItem('email');
-  pessoafisica.usuario.senha = localStorage.getItem('senha');
-  return this.httpCliente.post<PessoafisicaDto>(url, pessoafisica).pipe(
-    map(obj => obj),
-    catchError((e) => this.errorHandler(e))
-  );
-}
+    const url = `${environment.config.URL_API}/pessoaFisica/add`;
+    pessoafisica.usuario = {
+      email: localStorage.getItem('email_acesso'),
+      senha: localStorage.getItem('senha_acesso')
+    };
+    return this.httpCliente.post<PessoafisicaDto>(url, pessoafisica).pipe(
+      map(obj => obj),
+      catchError((e) => this.errorHandler(e))
+    );
+  }
 
   editarPessoaFisica(pessoafisica: PessoafisicaDto): Observable<PessoafisicaDto> {
-  const url = `${environment.config.URL_API}/pessoaFisica/edit`;
-  return this.httpCliente.put<PessoafisicaDto>(url, pessoafisica).pipe(
-    map(obj => obj),
-    catchError((e) => this.errorHandler(e))
-  );
+    const url = `${environment.config.URL_API}/pessoaFisica/edit`;
+    return this.httpCliente.put<PessoafisicaDto>(url, pessoafisica).pipe(
+      map(obj => obj),
+      catchError((e) => this.errorHandler(e))
+    );
+  }
+
+  bucarPessoaFisicaPorId(idPess: number): Observable<PessoafisicaDto> {
+    const url = `${environment.config.URL_API}/pessoaFisica/`;
+    return this.httpCliente.get<PessoafisicaDto>(url + idPess).pipe(
+      map((pessoafisica) => pessoafisica),
+      catchError((e) => this.errorHandler(e))
+    );
+  }
+  deletarEmpresa(idEmp: number): Observable<EmpresaDto> {
+    const url = `${environment.config.URL_API}/empresa/delete/`;
+    return this.httpCliente.delete<EmpresaDto>(url + idEmp).pipe(
+      map((obj) => obj),
+      catchError( (e) => this.errorHandler(e))
+    );
+  }
 }
-  bucarTipoPorId(idPess: number): Observable<PessoafisicaDto> {
-  const url = `${environment.config.URL_API}/pessoaFisica/`;
-  return this.httpCliente.get<PessoafisicaDto>(url + idPess).pipe(
-    map((empresa) => this.pessoafisica),
-    catchError((e) => this.errorHandler(e))
-  );
-}
-}
+

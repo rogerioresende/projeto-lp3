@@ -1,6 +1,7 @@
 package br.com.unialfa.myjob.business;
 import br.com.unialfa.myjob.DAO.PessoaFisicaDAO;
 import br.com.unialfa.myjob.domain.PessoaFisica;
+import br.com.unialfa.myjob.domain.Usuario;
 import br.com.unialfa.myjob.repository.CurriculoRepository;
 import br.com.unialfa.myjob.repository.PessoaFisicaRepository;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,13 @@ public class PessoaFisicaBusiness {
 
 
     public PessoaFisica salvarPessoaFisica(PessoaFisicaDAO pessoaFisicaDAO) {
+        Usuario usuario = cadastroLoginRepository.findByEmail(pessoaFisicaDAO.getUsuario().getEmail());
         PessoaFisica pessoaFisica = new PessoaFisica();
         pessoaFisica.setNome(pessoaFisicaDAO.getNome());
         pessoaFisica.setIdade(pessoaFisicaDAO.getIdade());
         pessoaFisica.setSexo(pessoaFisicaDAO.getSexo());
         pessoaFisica.setCpf(pessoaFisicaDAO.getCpf());
+        pessoaFisica.setCadastroLogin(usuario);
         return pessoaFisicaRepository.save(pessoaFisica);
     }
     public Iterable<PessoaFisica> findAll() {

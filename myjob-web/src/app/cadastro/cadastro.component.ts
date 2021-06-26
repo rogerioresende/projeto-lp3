@@ -69,9 +69,8 @@ export class CadastroComponent implements OnInit {
       };
       this.cadastroService.cadastrar(this.usuario).subscribe((dado) => {
         this.cadastroService.showMessage('Cadastro salvo com sucesso', false);
-        console.log(dado);
-        localStorage.setItem('email', dado.email);
-        localStorage.setItem('senha', dado.senha);
+        localStorage.setItem('email_acesso', this.formCadastro.value.email);
+        localStorage.setItem('senha_acesso', this.formCadastro.value.senha);
         this.router.navigate(['/acesso']);
       });
     }

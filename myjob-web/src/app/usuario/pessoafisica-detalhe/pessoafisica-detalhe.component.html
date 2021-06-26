@@ -6,10 +6,11 @@
     <div class="card-container">
       <div>
         <form [formGroup]="formPessoa" (ngSubmit)="onSubmit"  class="form-exemplo">
+
           <div style="display: none">
             <mat-form-field class="example-full-width">
               <mat-label>IDPESS</mat-label>
-              <input matInput  formControlName="idEmp">
+              <input matInput  formControlName="idPess">
             </mat-form-field>
           </div>
 
@@ -45,7 +46,7 @@
           <mat-form-field class="example-full-width">
             <mat-label>Idade</mat-label>
             <input type="number" matInput placeholder="Ex:32"  [errorStateMatcher]="matcher"
-                   mask="" required  formControlName="cpf">
+                   mask="" required  formControlName="idade">
             <mat-error *ngIf="getControl.idade.hasError('idade') && !getControl.idade.hasError('required')">
               Por favor entre uma idade válida!
             </mat-error>

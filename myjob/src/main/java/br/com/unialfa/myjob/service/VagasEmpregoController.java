@@ -20,9 +20,9 @@ public class VagasEmpregoController {
         this.vagasEmpregoBusiness = vagasEmpregoBusiness;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<VagasEmprego> listarEmpresa() {
-        return vagasEmpregoRepository.findAll();
+    @GetMapping(path = "/{email}")
+    public Iterable<VagasEmprego> listarVasgasEmpresa(@PathVariable(name = "email") String email) {
+        return vagasEmpregoBusiness.listarVasgasEmpresa(email);
     }
 
     @PostMapping(path = "/add")

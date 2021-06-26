@@ -7,6 +7,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {PessoafisicaDto} from '../../../model/pessoafisica-dto';
 import {UsuarioDao} from '../../../model/usuario-dao';
+import {AuthGuardService} from '../../guards/auth.guard.service';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -43,6 +44,7 @@ export class PessoafisicaDetalheComponent implements OnInit {
               private fb: FormBuilder,
               private router: Router,
               private route: ActivatedRoute,
+              private authService: AuthGuardService
   ) {
   }
   pessoafisica: PessoafisicaDto;
@@ -53,14 +55,15 @@ export class PessoafisicaDetalheComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   inscricao: Subscription;
+
   ngOnInit(): void {
     this.inscricao = this.route.params.subscribe(
       (params: Params) => {
         const idPess: number = +params.idPess;
         if (idPess) {
-          this.pessoafisicaService.bucarTipoPorId(idPess).subscribe(dados => {
+          this.pessoafisicaService.bucarPessoaFisicaPorId(idPess).subscribe(dados => {
             this.pessoafisica = dados;
-            this.formPessoa = this.fb.group({     // {5}
+            this.formPessoa = this.fb.group({
               idPess: [this.pessoafisica.idPess],
               nome: [this.pessoafisica.nome, [Validators.required, Validators.minLength(3)]],
               cpf: [this.pessoafisica.cpf, [Validators.required]],
@@ -85,7 +88,7 @@ export class PessoafisicaDetalheComponent implements OnInit {
             usuario: this.usuario
           };
           this.formPessoa = this.fb.group({     // {5}
-            idEmp: [this.pessoafisica.idPess],
+            idPess: [this.pessoafisica.idPess],
             nome: [this.pessoafisica.nome, Validators.required],
             cpf: [this.pessoafisica.cpf, Validators.required],
             sexo: [this.pessoafisica.sexo, [Validators.required]],
@@ -100,13 +103,19 @@ export class PessoafisicaDetalheComponent implements OnInit {
     if (this.pessoafisica.idPess === null) {
       this.pessoafisicaService.cadastrarPessoaFisica(this.pessoafisica).subscribe(() => {
         this.pessoafisicaService.showMessage('Pessoa fisica salvo com sucesso', false);
+        this.usuario = {
+          email: localStorage.getItem('email_acesso'),
+          senha: localStorage.getItem('senha_acesso')
+        };
+        this.authService.login(this.usuario, false);
       });
-      this.router.navigate(['/pessoaFisica']);
     } else {
       this.pessoafisicaService.editarPessoaFisica(this.pessoafisica).subscribe(() => {
         this.pessoafisicaService.showMessage('Pessoa fisica atualizada com sucesso', false);
       });
-      this.router.navigate(['/pessoaFisica']);
+      this.router.navigate(['/usuario-pessoa']).then(() => {
+        window.location.reload();
+      });
     }
   }
 

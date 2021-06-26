@@ -25,7 +25,7 @@
 
           <mat-form-field class="example-full-width">
             <mat-label>Nome Fantasia</mat-label>
-            <input type="text" matInput placeholder="Ex. Coca Cola" formControlName="nomeFant"
+            <input type="text" matInput placeholder="Ex. Nome da empresa" formControlName="nomeFant"
                    [errorStateMatcher]="matcher"
                    required>
             <mat-error *ngIf="getControl.nomeFant.hasError('nomeFant') && !getControl.nomeFant.hasError('required')">

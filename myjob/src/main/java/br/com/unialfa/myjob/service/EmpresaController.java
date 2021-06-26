@@ -1,5 +1,6 @@
 package br.com.unialfa.myjob.service;
 import br.com.unialfa.myjob.DAO.EmpresaDAO;
+import br.com.unialfa.myjob.DAO.PessoaFisicaDAO;
 import br.com.unialfa.myjob.domain.Empresa;
 import br.com.unialfa.myjob.repository.EmpresaRepository;
 import br.com.unialfa.myjob.business.EmpresaBusiness;
@@ -28,6 +29,7 @@ public class EmpresaController {
 
     @PostMapping(path = "/add")
     public ResponseEntity<?> cadastrarEmpresa(@RequestBody EmpresaDAO empresaDAO){
+        EmpresaDAO teste = empresaDAO;
         try {
             return new ResponseEntity<>(empresaBusiness.salvarEmpresa(empresaDAO), HttpStatus.OK);
         }catch (Exception e){
@@ -38,7 +40,7 @@ public class EmpresaController {
 
     @PutMapping(path = "/edit")
     public ResponseEntity<?> editarEmpresa(@RequestBody Empresa empresa) {
-
+        empresaRepository.save(empresa);
         try {
             return new ResponseEntity<>(empresaRepository.save(empresa), HttpStatus.OK);
         }catch (Exception e){
@@ -46,10 +48,19 @@ public class EmpresaController {
         }
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{idEmp}")
     public ResponseEntity<?> bucarTipoPorId(@PathVariable(name = "idEmp") long idEmp){
         try {
             return new ResponseEntity<>(empresaRepository.findById(idEmp), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<?> deletarEmpresa(@PathVariable(name = "idEmp") long idEmp){
+        try {
+            empresaRepository.deleteById(idEmp);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }

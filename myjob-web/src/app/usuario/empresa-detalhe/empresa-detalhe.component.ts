@@ -7,6 +7,7 @@ import {EmpresaDto} from '../../../model/empresa-dto';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {UsuarioDao} from '../../../model/usuario-dao';
+import {AuthGuardService} from '../../guards/auth.guard.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -41,6 +42,7 @@ export class EmpresaDetalheComponent implements OnInit, ErrorStateMatcher {
               private fb: FormBuilder,
               private router: Router,
               private route: ActivatedRoute,
+              private authService: AuthGuardService
   ) {
   }
 
@@ -97,13 +99,19 @@ export class EmpresaDetalheComponent implements OnInit, ErrorStateMatcher {
     if (this.empresa.idEmp === null) {
       this.empresaService.cadastrarEmpresa(this.empresa).subscribe(() => {
         this.empresaService.showMessage('Empresa salvo com sucesso', false);
+        this.usuario = {
+          email: localStorage.getItem('email_acesso'),
+          senha: localStorage.getItem('senha_acesso')
+        };
+        this.authService.login(this.usuario, false);
       });
-      this.router.navigate(['/empresa']);
     } else {
       this.empresaService.editarEmpresa(this.empresa).subscribe(() => {
         this.empresaService.showMessage('Empresa atualizado com sucesso', false);
       });
-      this.router.navigate(['/empresa']);
+      this.router.navigate(['/usuario-empresa']).then(() => {
+        window.location.reload();
+      });
     }
   }
 

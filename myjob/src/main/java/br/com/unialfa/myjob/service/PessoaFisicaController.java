@@ -28,7 +28,7 @@ public class PessoaFisicaController {
 
     @PostMapping(path = "/add")
     public ResponseEntity<?> cadastrarPessoaFisica(@RequestBody PessoaFisicaDAO pessoaFisicaDAO) {
-
+        PessoaFisicaDAO teste = pessoaFisicaDAO;
         try {
             return new ResponseEntity<>(pessoaFisicaBusiness.salvarPessoaFisica(pessoaFisicaDAO), HttpStatus.OK);
         } catch (Exception e) {
@@ -47,11 +47,20 @@ public class PessoaFisicaController {
         }
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{idPess}")
     public ResponseEntity<?> bucarTipoPorId(@PathVariable(name = "idPess") long idPess) {
         try {
             return new ResponseEntity<>(pessoaFisicaRepository.findById(idPess), HttpStatus.OK);
         } catch (Exception e) {
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @DeleteMapping(path = "/delete/{idPess}")
+    public ResponseEntity<?> deletarEmpresa(@PathVariable(name = "idPess") long idPess){
+        try {
+            pessoaFisicaRepository.deleteById(idPess);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }

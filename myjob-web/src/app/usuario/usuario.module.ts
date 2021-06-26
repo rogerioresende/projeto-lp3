@@ -13,13 +13,12 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
-
 @NgModule({
   declarations: [
     EmpresaComponent,
     PessoafisicaComponent,
     EmpresaDetalheComponent,
-    PessoafisicaDetalheComponent
+    PessoafisicaDetalheComponent,
   ],
   imports: [
     CommonModule,

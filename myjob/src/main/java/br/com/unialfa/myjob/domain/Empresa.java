@@ -26,7 +26,7 @@ public class Empresa implements Serializable {
     @OneToOne(cascade=CascadeType.ALL)
     private Usuario usuario;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "empresa")
     private List<VagasEmprego> vagasEmpregos;
 

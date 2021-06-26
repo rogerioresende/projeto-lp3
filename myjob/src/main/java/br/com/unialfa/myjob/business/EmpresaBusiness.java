@@ -28,12 +28,12 @@ public class EmpresaBusiness {
     }
 
     public Empresa salvarEmpresa(EmpresaDAO empresaDAO) {
-        Optional<Usuario> cadastroLogin = cadastroLoginRepository.findById(empresaDAO.getCadastroLogin_id());
+        Usuario usuario = cadastroLoginRepository.findByEmail(empresaDAO.getUsuario().getEmail());
         Empresa empresa = new Empresa();
         empresa.setNomeFant(empresaDAO.getNomeFant());
         empresa.setRazaoSocial(empresaDAO.getRazaoSocial());
         empresa.setCnpj(empresaDAO.getCnpj());
-        empresa.setCadastroLogin(cadastroLogin.get());
+        empresa.setCadastroLogin(usuario);
         return empresaRepository.save(empresa);
 
     }

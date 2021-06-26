@@ -29,6 +29,7 @@ export class AuthGuardService {
     if (primeiroAcesso === false) {
       if (usuarioDao.email !== '' && usuarioDao.senha !== null) {
         this.authenticate(usuarioDao).subscribe((dado) => {
+          debugger;
           localStorage.setItem('email', usuarioDao.email);
           localStorage.setItem('usuario_id', dado.id);
           this.showMessage('Logado com sucesso', false);
