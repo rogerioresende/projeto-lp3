@@ -23,19 +23,28 @@ public class CadastroLoginController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Usuario> listarCadastroLogin() {
-        return cadastroLoginBusiness.findAll();
+    public ResponseEntity<?> listarCadastroLogin() {
+        try {
+            return new ResponseEntity<>(cadastroLoginRepository.findAll(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(path = "/add")
-    public void cadastrarCadastroLogin(@RequestBody Usuario usuario) {
-        cadastroLoginBusiness.salvar(usuario);
+    public ResponseEntity<?> cadastrarCadastroLogin(@RequestBody Usuario usuario) {
+        return cadastroLoginBusiness.salvar(usuario);
     }
 
     @PutMapping(path = "/edit")
-    public void editarCadastroLogin(@RequestBody Usuario usuario) {
-        cadastroLoginRepository.save(usuario);
+    public ResponseEntity<?> editarCadastroLogin(@RequestBody Usuario usuario) {
+        try {
+            return new ResponseEntity<>(cadastroLoginRepository.save(usuario), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
     }
+
     @PostMapping(value = "/login")
     public ResponseEntity<?> bucarTipoPorId(@RequestBody Usuario usuario){
         try {

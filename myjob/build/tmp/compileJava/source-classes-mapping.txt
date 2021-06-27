@@ -28,10 +28,10 @@ br/com/unialfa/myjob/business/PessoaFisicaBusiness.java
  br.com.unialfa.myjob.business.PessoaFisicaBusiness
 br/com/unialfa/myjob/MyjobApplication.java
  br.com.unialfa.myjob.MyjobApplication
-br/com/unialfa/myjob/domain/VagasEmprego.java
- br.com.unialfa.myjob.domain.VagasEmprego
 br/com/unialfa/myjob/repository/VagasEmpregoRepository.java
  br.com.unialfa.myjob.repository.VagasEmpregoRepository
+br/com/unialfa/myjob/domain/VagasEmprego.java
+ br.com.unialfa.myjob.domain.VagasEmprego
 br/com/unialfa/myjob/domain/Endereco.java
  br.com.unialfa.myjob.domain.Endereco
 br/com/unialfa/myjob/DAO/CandidatarVagaDAO.java

@@ -3,6 +3,8 @@ import {UsuarioService} from '../usuario.service';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {PessoafisicaDto} from '../../../model/pessoafisica-dto';
+import {EmpresaDto} from '../../../model/empresa-dto';
+import {AuthGuardService} from '../../guards/auth.guard.service';
 
 @Component({
   selector: 'app-pessoafisica',
@@ -14,7 +16,8 @@ export class PessoafisicaComponent implements OnInit {
   constructor(
     private pessoafisicaService: UsuarioService,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private auth: AuthGuardService
   ) {
   }
 
@@ -25,9 +28,12 @@ export class PessoafisicaComponent implements OnInit {
   dataSource;
 
   ngOnInit(): void {
-    this.pessoafisicaService.listarPessoa().subscribe(dados => {
-      this.pessoafisica = dados;
+    this.pessoafisicaService.listarPessoaPorUsuario().subscribe(dados => {
+      this.pessoafisica = [dados];
       this.dataSource = this.pessoafisica;
+      if (dados === null){
+        this.router.navigate(['/usuario-empresa']);
+      }
     });
   }
 
@@ -35,7 +41,9 @@ export class PessoafisicaComponent implements OnInit {
     this.router.navigate(['/pessoafisica-detalhe', pessoafisica.idPess]);
   }
 
-  cadastrar(): void {
-    this.router.navigate(['/pessoafisica-detalhe']);
+  deletarPessoaFisica(pessoaFisica: PessoafisicaDto): void {
+    this.pessoafisicaService.deletarPessoaFisica(pessoaFisica.idPess).subscribe(dados => {
+      this.auth.logout();
+    });
   }
 }

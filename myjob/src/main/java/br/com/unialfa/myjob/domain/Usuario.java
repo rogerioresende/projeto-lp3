@@ -1,12 +1,7 @@
 package br.com.unialfa.myjob.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
-
 
 @Entity
 
@@ -20,20 +15,8 @@ public class Usuario implements Serializable {
     private String usuario;
     private String senha;
 
-
     @OneToOne(cascade=CascadeType.ALL)
     private Endereco endereco;
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-
-    @OneToOne(cascade=CascadeType.ALL)
-    private Empresa empresa;
 
     public long getId() {
         return id;

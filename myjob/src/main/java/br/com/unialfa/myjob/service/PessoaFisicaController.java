@@ -1,6 +1,8 @@
 package br.com.unialfa.myjob.service;
 import br.com.unialfa.myjob.DAO.PessoaFisicaDAO;
 import br.com.unialfa.myjob.domain.PessoaFisica;
+import br.com.unialfa.myjob.domain.Usuario;
+import br.com.unialfa.myjob.repository.CadastroLoginRepository;
 import br.com.unialfa.myjob.repository.PessoaFisicaRepository;
 import br.com.unialfa.myjob.business.PessoaFisicaBusiness;
 import org.springframework.http.HttpStatus;
@@ -14,16 +16,18 @@ public class PessoaFisicaController {
 
     final PessoaFisicaBusiness pessoaFisicaBusiness;
     final PessoaFisicaRepository pessoaFisicaRepository;
+    final CadastroLoginRepository cadastroLoginRepository;
 
 
-    public PessoaFisicaController(PessoaFisicaBusiness pessoaFisicaBusiness, PessoaFisicaRepository pessoaFisicaRepository) {
+    public PessoaFisicaController(PessoaFisicaBusiness pessoaFisicaBusiness, PessoaFisicaRepository pessoaFisicaRepository, CadastroLoginRepository cadastroLoginRepository) {
         this.pessoaFisicaBusiness = pessoaFisicaBusiness;
         this.pessoaFisicaRepository = pessoaFisicaRepository;
+        this.cadastroLoginRepository = cadastroLoginRepository;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<PessoaFisica> listarPessoa() {
-        return pessoaFisicaRepository.findAll();
+    @GetMapping(value = "/listar/{email}")
+    public PessoaFisica listarPessoa(@PathVariable(name = "email") String email) {
+        return pessoaFisicaBusiness.listarPessoa(email);
     }
 
     @PostMapping(path = "/add")
@@ -37,9 +41,10 @@ public class PessoaFisicaController {
 
     }
 
-    @PutMapping(path = "/edit")
-    public ResponseEntity<?> editarPessoaFisica(@RequestBody PessoaFisica pessoaFisica) {
-        pessoaFisicaRepository.save(pessoaFisica);
+    @PutMapping(path = "/edit/{email}")
+    public ResponseEntity<?> editarPessoaFisica(@RequestBody PessoaFisica pessoaFisica, @PathVariable(name = "email") String email) {
+        Usuario usuario = cadastroLoginRepository.findByEmail(email);
+        pessoaFisica.setCadastroLogin(usuario);
         try {
             return new ResponseEntity<>(pessoaFisicaRepository.save(pessoaFisica), HttpStatus.OK);
         } catch (Exception e) {
@@ -55,6 +60,7 @@ public class PessoaFisicaController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
+
     @DeleteMapping(path = "/delete/{idPess}")
     public ResponseEntity<?> deletarEmpresa(@PathVariable(name = "idPess") long idPess){
         try {

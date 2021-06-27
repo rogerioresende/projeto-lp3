@@ -1,1 +1,78 @@
-<p>vagas-detalhe works!</p>
+<div class="card">
+  <div class="card-header text-center">
+    Manutenção de Vagas:
+  </div>
+  <div class="card-body">
+    <div class="card-container">
+      <div>
+        <form [formGroup]="formVaga" (ngSubmit)="onSubmit"  class="form-exemplo">
+
+          <div style="display: none">
+            <mat-form-field class="example-full-width">
+              <mat-label>ID</mat-label>
+              <input matInput  formControlName="idVaga">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>NOME DA EMPRESA</mat-label>
+            <input type="text" matInput placeholder="Ex. Google" formControlName="nomeEmp"
+                   [errorStateMatcher]="matcher"
+                   required>
+
+            <mat-error *ngIf="getControl.nomeEmp.hasError('nomeEmp') && !getControl.nomeEmp.hasError('required')">
+              por favor entre com nome da Empresa válido!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>ESPECIFICAÇÃO</mat-label>
+            <input type="text" matInput placeholder="Ex. Possuir conhecimento em Java" formControlName="espVaga"
+                   [errorStateMatcher]="matcher"
+                   required>
+            <mat-error *ngIf="getControl.espVaga.hasError('espVaga') && !getControl.espVaga.hasError('required')">
+              por favor entre com uma especificação válida!
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Escolaridade</mat-label>
+            <input type="text" matInput placeholder="Ex. Nível Superior Completo" formControlName="nivelEsco"
+                   [errorStateMatcher]="matcher"
+                   required>
+            <mat-error *ngIf="getControl.nivelEsco.hasError('nivelEsco') && !getControl.nivelEsco.hasError('required')">
+              por favor entre com uma escolaridade válida!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>CURSOS EXTRAS</mat-label>
+            <input type="text" matInput placeholder="Ex. Certificação em ITIL-V4" formControlName="nivelTec"
+                   [errorStateMatcher]="matcher"
+                   required>
+            <mat-error *ngIf="getControl.nivelTec.hasError('nivelTec') && !getControl.nivelTec.hasError('required')">
+              por favor entre com um nome de curso válido!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>VAGA PREENCHIDA</mat-label>
+            <mat-select formControlName="vagaPreenchida">
+              <mat-option *ngFor="let option of preenchida" [value]="option.vagaPreenchida">{{ option.nome }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <hr>
+
+          <button style="margin-right: 5px" mat-raised-button type="submit" (click)="onSubmit()" color="primary"> Salvar </button>
+          <button mat-raised-button type="button" (click)="voltar()" color="default"> Voltar </button>
+
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -4,6 +4,8 @@ import br.com.unialfa.myjob.domain.Usuario;
 import br.com.unialfa.myjob.domain.Endereco;
 import br.com.unialfa.myjob.repository.CadastroLoginRepository;
 import br.com.unialfa.myjob.repository.EnderecoRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,8 +20,8 @@ public class CadastroLoginBusiness {
         this.enderecoRepository = enderecoRepository;
     }
 
-    public void salvar(Usuario usuario) {
-
+    public ResponseEntity<?> salvar(Usuario usuario) {
+        try {
         Endereco endereco = new Endereco();
         endereco.setRua(usuario.getEndereco().getRua());
         endereco.setBairro(usuario.getEndereco().getBairro());
@@ -32,7 +34,10 @@ public class CadastroLoginBusiness {
         usuario.setSenha(usuario.getSenha());
         usuario.setUsuario(usuario.getUsuario());
         usuario.setEndereco(endereco);
-        cadastroLoginRepository.save(usuario);
+            return new ResponseEntity<>(cadastroLoginRepository.save(usuario), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
 

@@ -16,8 +16,6 @@ export class VagasempresasComponent implements OnInit {
   constructor(private vagasempregoService: VagasempregoService,
               private fb: FormBuilder,
               private router: Router,
-              private route: ActivatedRoute,
-              private usuarioService: UsuarioService,
   ) {
   }
 
@@ -26,20 +24,22 @@ export class VagasempresasComponent implements OnInit {
   dataSource;
 
   ngOnInit(): void {
-    this.vagasempregoService.listarVagasEmpresas().subscribe(dados => {
+    this.vagasempregoService.listarVagasEmpresas().subscribe( dados => {
       this.vagas = dados;
       this.dataSource = this.vagas;
     });
   }
-  editarVagasEmprego(vagas: VagasDto): void {
-    this.router.navigate(['/vagas-detalhe', vagas.idVaga]);
+  editarVagasEmprego(vaga: VagasDto): void {
+    this.router.navigate(['/vagasemprego', vaga.idVaga]);
   }
+
   cadastrarVagasEmprego(): void {
-    this.router.navigate(['/vagas-detalhe']);
+    this.router.navigate(['/vagasemprego']);
   }
-  deletarVagaEmprego(vagas: VagasDto): void {
-    this.vagasempregoService.deletarVagaEmprego(vagas.idVaga).subscribe(dados => {
-      this.router.navigate(['/vagas-detalhe'])
+
+  deletarVagaEmprego(vaga: VagasDto): void {
+    this.vagasempregoService.deletarVagaEmprego(vaga.idVaga).subscribe(dados => {
+      this.router.navigate(['/vagasempregoempresa'])
         .then(() => {
           window.location.reload();
         });

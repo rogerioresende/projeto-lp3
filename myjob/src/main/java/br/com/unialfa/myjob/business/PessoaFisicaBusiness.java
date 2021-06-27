@@ -1,8 +1,10 @@
 package br.com.unialfa.myjob.business;
 import br.com.unialfa.myjob.DAO.PessoaFisicaDAO;
+import br.com.unialfa.myjob.domain.Empresa;
 import br.com.unialfa.myjob.domain.PessoaFisica;
 import br.com.unialfa.myjob.domain.Usuario;
 import br.com.unialfa.myjob.repository.CurriculoRepository;
+import br.com.unialfa.myjob.repository.EmpresaRepository;
 import br.com.unialfa.myjob.repository.PessoaFisicaRepository;
 import org.springframework.stereotype.Service;
 import br.com.unialfa.myjob.repository.CadastroLoginRepository;
@@ -16,7 +18,9 @@ public class PessoaFisicaBusiness {
     private final PessoaFisicaRepository pessoaFisicaRepository;
     private final CadastroLoginRepository cadastroLoginRepository;
 
-    public PessoaFisicaBusiness(CurriculoRepository curriculoRepository, PessoaFisicaRepository pessoaFisicaRepository, CadastroLoginRepository cadastroLoginRepository) {
+    public PessoaFisicaBusiness(CurriculoRepository curriculoRepository,
+                                PessoaFisicaRepository pessoaFisicaRepository,
+                                CadastroLoginRepository cadastroLoginRepository) {
         this.curriculoRepository = curriculoRepository;
         this.pessoaFisicaRepository = pessoaFisicaRepository;
         this.cadastroLoginRepository = cadastroLoginRepository;
@@ -33,9 +37,12 @@ public class PessoaFisicaBusiness {
         pessoaFisica.setCadastroLogin(usuario);
         return pessoaFisicaRepository.save(pessoaFisica);
     }
-    public Iterable<PessoaFisica> findAll() {
-        return pessoaFisicaRepository.findAll();
-}
+
+    public PessoaFisica listarPessoa(String email) {
+        Usuario usuario = cadastroLoginRepository.findByEmail(email);
+        PessoaFisica pessoaFisica = pessoaFisicaRepository.findByUsuarioId(usuario.getId());
+        return pessoaFisica;
+    }
 
 
 }

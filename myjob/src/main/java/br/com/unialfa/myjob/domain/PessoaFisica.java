@@ -28,7 +28,9 @@ public class PessoaFisica  implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Curriculo curriculo;
 
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "pessoaFisica", cascade = CascadeType.REMOVE)
+    private List<CandidatarVaga> candidatarVagas;
 
     public List<CandidatarVaga> getCandidatarVagas() {
         return candidatarVagas;
@@ -37,9 +39,6 @@ public class PessoaFisica  implements Serializable {
     public void setCandidatarVagas(List<CandidatarVaga> candidatarVagas) {
         this.candidatarVagas = candidatarVagas;
     }
-    @JsonIgnore
-    @OneToMany(mappedBy = "pessoaFisica")
-    private List<CandidatarVaga> candidatarVagas;
 
     public long getIdPess() {
         return idPess;

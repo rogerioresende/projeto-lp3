@@ -17,8 +17,6 @@ public class Empresa implements Serializable {
     private String razaoSocial;
     private String nomeFant;
 
-
-
     @Column (unique = true, nullable = false)
     private String cnpj;
 
@@ -26,11 +24,8 @@ public class Empresa implements Serializable {
     @OneToOne(cascade=CascadeType.ALL)
     private Usuario usuario;
 
-
-    @OneToMany(mappedBy = "empresa")
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.REMOVE)
     private List<VagasEmprego> vagasEmpregos;
-
-
 
     public long getIdEmp() {
         return idEmp;

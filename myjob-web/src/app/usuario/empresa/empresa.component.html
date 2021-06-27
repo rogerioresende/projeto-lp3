@@ -35,8 +35,8 @@
         <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
         <td mat-cell *matCellDef="let empresa">
           <div>
-            <button mat-button color= "primary" style="margin-right: 5px" (click)="editarEmpresa(empresa)">Editar</button>
-            <button mat-button color= "warn" (click)="deletarEmpresa(empresa)">Excluir</button>
+            <button style="margin-right: 5px" mat-raised-button (click)="editarEmpresa(empresa)" color="primary"> Editar </button>
+            <button mat-raised-button color= "warn" (click)="deletarEmpresa(empresa)"> Deletar Conta </button>
           </div>
         </td>
       </ng-container>

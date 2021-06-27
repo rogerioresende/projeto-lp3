@@ -62,13 +62,12 @@ export class EmpresaDetalheComponent implements OnInit, ErrorStateMatcher {
         if (idEmp) {
           this.empresaService.bucarEmpresaPorId(idEmp).subscribe(dados => {
             this.empresa = dados;
-            this.formEmpresa = this.fb.group({     // {5}
+            this.formEmpresa = this.fb.group({
               idEmp: [this.empresa.idEmp],
               razaoSocial: [this.empresa.razaoSocial, [Validators.required, Validators.minLength(3)]],
               nomeFant: [this.empresa.nomeFant, [Validators.required]],
               cnpj: [this.empresa.cnpj, Validators.required],
             });
-            console.log(this.formEmpresa);
           }, error => {
             console.error(error);
           });

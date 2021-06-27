@@ -5,11 +5,11 @@ import br.com.unialfa.myjob.domain.Empresa;
 import br.com.unialfa.myjob.domain.Usuario;
 import br.com.unialfa.myjob.domain.VagasEmprego;
 import br.com.unialfa.myjob.repository.CadastroLoginRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import br.com.unialfa.myjob.repository.EmpresaRepository;
 import br.com.unialfa.myjob.repository.VagasEmpregoRepository;
-
-import java.util.Optional;
 
 @Service
 public class VagasEmpregoBusiness {
@@ -24,27 +24,38 @@ public class VagasEmpregoBusiness {
         this.cadastroLoginRepository = cadastroLoginRepository;
     }
 
-    public void salvarVagasEmprego(VagasEmpregoDAO vagasEmpregoDAO) {
-        Optional<Empresa> empresa = empresaRepository.findById(vagasEmpregoDAO.getEmpresa_idEmp());
+    public ResponseEntity<?> salvarVagasEmprego(VagasEmpregoDAO vagasEmpregoDAO, String email) {
+        try {
         VagasEmprego vagasEmprego = new VagasEmprego();
         vagasEmprego.setNomeEmp(vagasEmpregoDAO.getNomeEmp());
         vagasEmprego.setNivelEsco(vagasEmpregoDAO.getNivelEsco());
         vagasEmprego.setNivelTec(vagasEmpregoDAO.getNivelTec());
         vagasEmprego.setEspVaga(vagasEmpregoDAO.getEspVaga());
         vagasEmprego.setVagaPreenchida(vagasEmpregoDAO.isVagaPreenchida());
-        vagasEmprego.setEmpresa(empresa.get());
-        vagasEmpregoRepository.save(vagasEmprego);
-
-    }
-
-    public Iterable<VagasEmprego> listarVasgasEmpresa(String email) {
         Usuario usuario = cadastroLoginRepository.findByEmail(email);
-        return usuario.getEmpresa().getVagasEmpregos();
-
+        Empresa empresa = empresaRepository.findByUsuarioId(usuario.getId());
+        vagasEmprego.setEmpresa(empresa);
+            return new ResponseEntity<>(vagasEmpregoRepository.save(vagasEmprego),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
+    public Iterable<VagasEmprego> listarVagasEmpresa(String email) {
+        Usuario usuario = cadastroLoginRepository.findByEmail(email);
+        Empresa empresa = empresaRepository.findByUsuarioId(usuario.getId());
+        if(empresa == null){
+            return null;
+        }
+        return empresa.getVagasEmpregos();
+    }
 
-    public void deletarVagaEmprego(long id) {
-        vagasEmpregoRepository.deleteById(id);
+    public ResponseEntity<?> deletarVagaEmprego(long id) {
+        try {
+            vagasEmpregoRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
     }
 }

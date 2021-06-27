@@ -1,5 +1,6 @@
 package br.com.unialfa.myjob.business;
 import br.com.unialfa.myjob.DAO.EmpresaDAO;
+import br.com.unialfa.myjob.domain.PessoaFisica;
 import br.com.unialfa.myjob.domain.Usuario;
 import br.com.unialfa.myjob.domain.Empresa;
 import br.com.unialfa.myjob.repository.EmpresaRepository;
@@ -38,8 +39,10 @@ public class EmpresaBusiness {
 
     }
 
-    public Iterable<Empresa> findAll() {
-        return empresaRepository.findAll();
+    public Empresa listarEmpresa(String email) {
+        Usuario usuario = cadastroLoginRepository.findByEmail(email);
+        Empresa empresa = empresaRepository.findByUsuarioId(usuario.getId());
+        return empresa;
     }
 }
 

@@ -5,6 +5,12 @@ import {VagasDetalheComponent} from './vagas-detalhe/vagas-detalhe.component';
 import {VagasempresasComponent} from './vagasempresas/vagasempresas.component';
 import {VagasempregoRoutingModule} from './vagasemprego-routing.module';
 import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -16,8 +22,15 @@ import {MatTableModule} from '@angular/material/table';
   ],
   imports: [
     CommonModule,
+    MatTableModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSelectModule,
     VagasempregoRoutingModule,
-    MatTableModule
+
   ]
 })
 export class VagasempregoModule { }

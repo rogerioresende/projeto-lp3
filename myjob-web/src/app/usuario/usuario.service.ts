@@ -21,11 +21,11 @@ export class UsuarioService {
   }
 
   empresa: EmpresaDto[];
-  pessoafisica: PessoafisicaDto[];
 
-  listarEmpresas(): Observable<EmpresaDto[]> {
-    const url = `${environment.config.URL_API}/empresa/`;
-    return this.httpCliente.get<EmpresaDto[]>(url).pipe(
+  listarEmpresasPorUsuario(): Observable<EmpresaDto> {
+    const url = `${environment.config.URL_API}/empresa/listar/`;
+    const email = localStorage.getItem('email');
+    return this.httpCliente.get<EmpresaDto>(url + email).pipe(
       map((empresa) => empresa)
     );
   }
@@ -43,8 +43,9 @@ export class UsuarioService {
   }
 
   editarEmpresa(empresa: EmpresaDto): Observable<EmpresaDto> {
-    const url = `${environment.config.URL_API}/empresa/edit`;
-    return this.httpCliente.put<EmpresaDto>(url, empresa).pipe(
+    const url = `${environment.config.URL_API}/empresa/edit/`;
+    const email = localStorage.getItem('email');
+    return this.httpCliente.put<EmpresaDto>(url + email, empresa).pipe(
       map(obj => obj),
       catchError((e) => this.errorHandler(e))
     );
@@ -72,9 +73,10 @@ export class UsuarioService {
     );
   }
 
-  listarPessoa(): Observable<PessoafisicaDto[]> {
-    const url = `${environment.config.URL_API}/pessoaFisica/`;
-    return this.httpCliente.get<PessoafisicaDto[]>(url).pipe(
+  listarPessoaPorUsuario(): Observable<PessoafisicaDto> {
+    const url = `${environment.config.URL_API}/pessoaFisica/listar/`;
+    const email = localStorage.getItem('email');
+    return this.httpCliente.get<PessoafisicaDto>(url + email).pipe(
       map((pessoafisica) => pessoafisica)
     );
   }
@@ -92,8 +94,9 @@ export class UsuarioService {
   }
 
   editarPessoaFisica(pessoafisica: PessoafisicaDto): Observable<PessoafisicaDto> {
-    const url = `${environment.config.URL_API}/pessoaFisica/edit`;
-    return this.httpCliente.put<PessoafisicaDto>(url, pessoafisica).pipe(
+    const url = `${environment.config.URL_API}/pessoaFisica/edit/`;
+    const email = localStorage.getItem('email');
+    return this.httpCliente.put<PessoafisicaDto>(url + email, pessoafisica).pipe(
       map(obj => obj),
       catchError((e) => this.errorHandler(e))
     );
@@ -106,9 +109,18 @@ export class UsuarioService {
       catchError((e) => this.errorHandler(e))
     );
   }
-  deletarEmpresa(idEmp: number): Observable<EmpresaDto> {
+
+  deletarEmpresa(idEmp: number): Observable<any> {
     const url = `${environment.config.URL_API}/empresa/delete/`;
-    return this.httpCliente.delete<EmpresaDto>(url + idEmp).pipe(
+    return this.httpCliente.delete<any>(url + idEmp).pipe(
+      map((obj) => obj),
+      catchError( (e) => this.errorHandler(e))
+    );
+  }
+
+  deletarPessoaFisica(idPess: number): Observable<any> {
+    const url = `${environment.config.URL_API}/pessoaFisica/delete/`;
+    return this.httpCliente.delete<any>(url + idPess).pipe(
       map((obj) => obj),
       catchError( (e) => this.errorHandler(e))
     );

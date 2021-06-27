@@ -8,18 +8,17 @@ import {Observable} from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'myjob-web';
 
-  isLoggedIn$: Observable<boolean>;                  // {1}
+  isLoggedIn$: Observable<boolean>;
 
   constructor(private authService: AuthGuardService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
+    this.isLoggedIn$ = this.authService.isLoggedIn;
   }
 
   onLogout(): void {
-    this.authService.logout();                      // {3}
+    this.authService.logout();
   }
   isLoggedIn(): boolean {
     if (localStorage.getItem('email') === null){
