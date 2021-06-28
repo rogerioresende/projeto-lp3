@@ -8,6 +8,7 @@ import {Subscription} from 'rxjs';
 import {PessoafisicaDto} from '../../../model/pessoafisica-dto';
 import {UsuarioDao} from '../../../model/usuario-dao';
 import {AuthGuardService} from '../../guards/auth.guard.service';
+import {Curriculo} from '../../../model/curriculo';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -48,7 +49,10 @@ export class PessoafisicaDetalheComponent implements OnInit {
   ) {
   }
   pessoafisica: PessoafisicaDto;
+
   usuario: UsuarioDao;
+
+  curriculo: Curriculo;
 
   formPessoa: FormGroup;
 
@@ -65,12 +69,15 @@ export class PessoafisicaDetalheComponent implements OnInit {
             this.pessoafisica = dados;
             this.formPessoa = this.fb.group({
               idPess: [this.pessoafisica.idPess],
+              idCurr: [this.pessoafisica.curriculo.idCurr],
               nome: [this.pessoafisica.nome, [Validators.required, Validators.minLength(3)]],
               cpf: [this.pessoafisica.cpf, [Validators.required]],
               sexo: [this.pessoafisica.sexo, Validators.required],
               idade: [this.pessoafisica.idade, Validators.required],
+              grauEsco: [this.pessoafisica.curriculo.grauEsco, Validators.required],
+              infoTec: [this.pessoafisica.curriculo.infoTec, Validators.required],
+              formaAcade: [this.pessoafisica.curriculo.formaAcade, Validators.required]
             });
-            console.log(this.formPessoa);
           }, error => {
             console.error(error);
           });
@@ -79,27 +86,52 @@ export class PessoafisicaDetalheComponent implements OnInit {
             email: '',
             senha: '',
           };
+          this.curriculo = {
+            idCurr: null,
+            grauEsco: '',
+            infoTec: '',
+            formaAcade: ''
+          },
           this.pessoafisica = {
             idPess: null,
             nome: '',
             cpf: '',
             sexo: '',
             idade:  null,
-            usuario: this.usuario
+            usuario: this.usuario,
+            curriculo: this.curriculo
           };
           this.formPessoa = this.fb.group({     // {5}
             idPess: [this.pessoafisica.idPess],
+            idCurr: [this.pessoafisica.curriculo.idCurr],
             nome: [this.pessoafisica.nome, Validators.required],
             cpf: [this.pessoafisica.cpf, Validators.required],
             sexo: [this.pessoafisica.sexo, [Validators.required]],
             idade: [this.pessoafisica.idade, [Validators.required]],
+            grauEsco: [this.pessoafisica.curriculo.grauEsco, Validators.required],
+            infoTec: [this.pessoafisica.curriculo.infoTec, Validators.required],
+            formaAcade: [this.pessoafisica.curriculo.formaAcade, Validators.required]
           });
         }
       });
   }
 
   onSubmit(): void {
-    this.pessoafisica = this.formPessoa.value;
+    this.curriculo = {
+      idCurr: this.formPessoa.value.idCurr,
+      grauEsco: this.formPessoa.value.grauEsco,
+      infoTec: this.formPessoa.value.infoTec,
+      formaAcade: this.formPessoa.value.formaAcade
+    },
+    this.pessoafisica = {
+      idPess: this.formPessoa.value.idPess,
+      nome: this.formPessoa.value.nome,
+      cpf: this.formPessoa.value.cpf,
+      sexo: this.formPessoa.value.sexo,
+      idade:  this.formPessoa.value.idade,
+      usuario: this.usuario,
+      curriculo: this.curriculo
+    };
     if (this.pessoafisica.idPess === null) {
       this.pessoafisicaService.cadastrarPessoaFisica(this.pessoafisica).subscribe(() => {
         this.pessoafisicaService.showMessage('Pessoa fisica salvo com sucesso', false);

@@ -6,11 +6,18 @@
     <div class="card-container">
       <div>
         <form [formGroup]="formPessoa" (ngSubmit)="onSubmit"  class="form-exemplo">
-
+          <h3>Informações Pessoais</h3>
           <div style="display: none">
             <mat-form-field class="example-full-width">
               <mat-label>IDPESS</mat-label>
               <input matInput  formControlName="idPess">
+            </mat-form-field>
+          </div>
+
+          <div style="display: none">
+            <mat-form-field class="example-full-width">
+              <mat-label>IDCURR</mat-label>
+              <input matInput  formControlName="idCurr">
             </mat-form-field>
           </div>
 
@@ -51,6 +58,37 @@
               Por favor entre uma idade válida!
             </mat-error>
           </mat-form-field>
+
+          <hr>
+          <h3>Informações Acadêmicas</h3>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Escolaridade</mat-label>
+            <input type="text" matInput placeholder="Ex: Curso Superior"  [errorStateMatcher]="matcher"
+                   mask="" required  formControlName="grauEsco">
+            <mat-error *ngIf="getControl.grauEsco.hasError('grauEsco') && !getControl.grauEsco.hasError('required')">
+              Por favor entre uma escolaridade válida!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Cursos Extras</mat-label>
+            <input type="text" matInput placeholder="Ex: Exel e Word"  [errorStateMatcher]="matcher"
+                   mask="" required  formControlName="infoTec">
+            <mat-error *ngIf="getControl.infoTec.hasError('infoTec') && !getControl.infoTec.hasError('required')">
+              Por favor entre um nome de curso válido!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Formação Academica</mat-label>
+            <input type="text" matInput placeholder="Ex: Sistemas de Informação"  [errorStateMatcher]="matcher"
+                   mask="" required  formControlName="formaAcade">
+            <mat-error *ngIf="getControl.formaAcade.hasError('formaAcade') && !getControl.formaAcade.hasError('required')">
+              Por favor entre uma formação academica válida!
+            </mat-error>
+          </mat-form-field>
+
           <hr>
           <button mat-raised-button type="submit" (click)="onSubmit()" color="primary"> Salvar </button>
         </form>

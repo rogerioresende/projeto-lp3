@@ -1,5 +1,6 @@
 package br.com.unialfa.myjob.business;
 import br.com.unialfa.myjob.DAO.PessoaFisicaDAO;
+import br.com.unialfa.myjob.domain.Curriculo;
 import br.com.unialfa.myjob.domain.Empresa;
 import br.com.unialfa.myjob.domain.PessoaFisica;
 import br.com.unialfa.myjob.domain.Usuario;
@@ -28,13 +29,21 @@ public class PessoaFisicaBusiness {
 
 
     public PessoaFisica salvarPessoaFisica(PessoaFisicaDAO pessoaFisicaDAO) {
-        Usuario usuario = cadastroLoginRepository.findByEmail(pessoaFisicaDAO.getUsuario().getEmail());
         PessoaFisica pessoaFisica = new PessoaFisica();
         pessoaFisica.setNome(pessoaFisicaDAO.getNome());
         pessoaFisica.setIdade(pessoaFisicaDAO.getIdade());
         pessoaFisica.setSexo(pessoaFisicaDAO.getSexo());
         pessoaFisica.setCpf(pessoaFisicaDAO.getCpf());
+
+        Usuario usuario = cadastroLoginRepository.findByEmail(pessoaFisicaDAO.getUsuario().getEmail());
         pessoaFisica.setCadastroLogin(usuario);
+
+        Curriculo curriculo = new Curriculo();
+        curriculo.setFormaAcade(pessoaFisicaDAO.getCurriculo().getFormaAcade());
+        curriculo.setGrauEsco(pessoaFisicaDAO.getCurriculo().getGrauEsco());
+        curriculo.setInfoTec(pessoaFisicaDAO.getCurriculo().getInfoTec());
+        pessoaFisica.setCurriculo(curriculoRepository.save(curriculo));
+
         return pessoaFisicaRepository.save(pessoaFisica);
     }
 

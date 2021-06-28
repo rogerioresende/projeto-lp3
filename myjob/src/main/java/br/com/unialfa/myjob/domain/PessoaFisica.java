@@ -24,7 +24,6 @@ public class PessoaFisica  implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
 
-    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     private Curriculo curriculo;
 

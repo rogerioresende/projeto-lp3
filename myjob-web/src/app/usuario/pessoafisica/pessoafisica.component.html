@@ -39,6 +39,18 @@
       <td mat-cell *matCellDef="let pessoafisica"> {{pessoafisica.idade}} </td>
     </ng-container>
 
+    <!-- Escolaridade Column -->
+    <ng-container matColumnDef="grauEsco">
+      <th mat-header-cell *matHeaderCellDef> Escolaridade </th>
+      <td mat-cell *matCellDef="let pessoafisica"> {{pessoafisica.curriculo.grauEsco}} </td>
+    </ng-container>
+
+    <!-- Formação Column -->
+    <ng-container matColumnDef="formaAcade">
+      <th mat-header-cell *matHeaderCellDef> Formação Acadêmica </th>
+      <td mat-cell *matCellDef="let pessoafisica"> {{pessoafisica.curriculo.formaAcade}} </td>
+    </ng-container>
+
     <!-- Ações -->
     <ng-container matColumnDef="acoes">
       <th mat-header-cell *matHeaderCellDef> AÇÕES </th>

@@ -6,10 +6,10 @@ br/com/unialfa/myjob/DAO/EmpresaDAO.java
  br.com.unialfa.myjob.DAO.EmpresaDAO
 br/com/unialfa/myjob/service/CadastroLoginController.java
  br.com.unialfa.myjob.service.CadastroLoginController
-br/com/unialfa/myjob/domain/Curriculo.java
- br.com.unialfa.myjob.domain.Curriculo
-br/com/unialfa/myjob/DAO/PessoaFisicaDAO.java
- br.com.unialfa.myjob.DAO.PessoaFisicaDAO
+br/com/unialfa/myjob/business/CadastroLoginBusiness.java
+ br.com.unialfa.myjob.business.CadastroLoginBusiness
+br/com/unialfa/myjob/business/EmpresaBusiness.java
+ br.com.unialfa.myjob.business.EmpresaBusiness
 br/com/unialfa/myjob/service/EmpresaController.java
  br.com.unialfa.myjob.service.EmpresaController
 br/com/unialfa/myjob/business/VagasEmpregoBusiness.java
@@ -20,12 +20,12 @@ br/com/unialfa/myjob/repository/EmpresaRepository.java
  br.com.unialfa.myjob.repository.EmpresaRepository
 br/com/unialfa/myjob/service/VagasEmpregoController.java
  br.com.unialfa.myjob.service.VagasEmpregoController
-br/com/unialfa/myjob/domain/CandidatarVaga.java
- br.com.unialfa.myjob.domain.CandidatarVaga
+br/com/unialfa/myjob/repository/CadastroLoginRepository.java
+ br.com.unialfa.myjob.repository.CadastroLoginRepository
 br/com/unialfa/myjob/service/EnderecoController.java
  br.com.unialfa.myjob.service.EnderecoController
-br/com/unialfa/myjob/business/PessoaFisicaBusiness.java
- br.com.unialfa.myjob.business.PessoaFisicaBusiness
+br/com/unialfa/myjob/repository/CurriculoRepository.java
+ br.com.unialfa.myjob.repository.CurriculoRepository
 br/com/unialfa/myjob/MyjobApplication.java
  br.com.unialfa.myjob.MyjobApplication
 br/com/unialfa/myjob/repository/VagasEmpregoRepository.java
@@ -42,21 +42,21 @@ br/com/unialfa/myjob/repository/EnderecoRepository.java
  br.com.unialfa.myjob.repository.EnderecoRepository
 br/com/unialfa/myjob/DAO/VagasEmpregoDAO.java
  br.com.unialfa.myjob.DAO.VagasEmpregoDAO
-br/com/unialfa/myjob/business/CadastroLoginBusiness.java
- br.com.unialfa.myjob.business.CadastroLoginBusiness
-br/com/unialfa/myjob/business/EmpresaBusiness.java
- br.com.unialfa.myjob.business.EmpresaBusiness
-br/com/unialfa/myjob/repository/CurriculoRepository.java
- br.com.unialfa.myjob.repository.CurriculoRepository
 br/com/unialfa/myjob/service/CandidatarVagaController.java
  br.com.unialfa.myjob.service.CandidatarVagaController
+br/com/unialfa/myjob/domain/CandidatarVaga.java
+ br.com.unialfa.myjob.domain.CandidatarVaga
 br/com/unialfa/myjob/business/CandidatarVagaBusiness.java
  br.com.unialfa.myjob.business.CandidatarVagaBusiness
+br/com/unialfa/myjob/domain/Curriculo.java
+ br.com.unialfa.myjob.domain.Curriculo
+br/com/unialfa/myjob/business/PessoaFisicaBusiness.java
+ br.com.unialfa.myjob.business.PessoaFisicaBusiness
 br/com/unialfa/myjob/domain/PessoaFisica.java
  br.com.unialfa.myjob.domain.PessoaFisica
 br/com/unialfa/myjob/service/PessoaFisicaController.java
  br.com.unialfa.myjob.service.PessoaFisicaController
-br/com/unialfa/myjob/repository/CadastroLoginRepository.java
- br.com.unialfa.myjob.repository.CadastroLoginRepository
+br/com/unialfa/myjob/DAO/PessoaFisicaDAO.java
+ br.com.unialfa.myjob.DAO.PessoaFisicaDAO
 br/com/unialfa/myjob/repository/PessoaFisicaRepository.java
  br.com.unialfa.myjob.repository.PessoaFisicaRepository

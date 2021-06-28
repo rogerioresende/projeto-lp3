@@ -1,5 +1,6 @@
 package br.com.unialfa.myjob.DAO;
 
+import br.com.unialfa.myjob.domain.Curriculo;
 import br.com.unialfa.myjob.domain.Usuario;
 
 public class PessoaFisicaDAO {
@@ -11,6 +12,8 @@ public class PessoaFisicaDAO {
     private String cpf;
     private long idPess;
     private Usuario usuario;
+    private Curriculo curriculo;
+
     public PessoaFisicaDAO() {
     }
 
@@ -60,5 +63,13 @@ public class PessoaFisicaDAO {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Curriculo getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(Curriculo curriculo) {
+        this.curriculo = curriculo;
     }
 }

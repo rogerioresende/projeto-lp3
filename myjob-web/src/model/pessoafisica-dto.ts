@@ -1,4 +1,5 @@
 import {UsuarioDao} from './usuario-dao';
+import {Curriculo} from './curriculo';
 
 export class PessoafisicaDto {
   idPess: number;
@@ -7,4 +8,5 @@ export class PessoafisicaDto {
   sexo: string;
   idade: number;
   usuario: UsuarioDao;
+  curriculo: Curriculo;
 }

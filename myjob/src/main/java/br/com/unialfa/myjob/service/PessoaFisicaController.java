@@ -32,7 +32,6 @@ public class PessoaFisicaController {
 
     @PostMapping(path = "/add")
     public ResponseEntity<?> cadastrarPessoaFisica(@RequestBody PessoaFisicaDAO pessoaFisicaDAO) {
-        PessoaFisicaDAO teste = pessoaFisicaDAO;
         try {
             return new ResponseEntity<>(pessoaFisicaBusiness.salvarPessoaFisica(pessoaFisicaDAO), HttpStatus.OK);
         } catch (Exception e) {

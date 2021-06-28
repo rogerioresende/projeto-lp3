@@ -6,4 +6,4 @@ export class EmpresaDto {
   nomeFant: string;
   cnpj: string;
   usuario: UsuarioDao;
-  }
+}

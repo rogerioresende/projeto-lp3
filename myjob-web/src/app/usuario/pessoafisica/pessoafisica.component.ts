@@ -3,7 +3,6 @@ import {UsuarioService} from '../usuario.service';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {PessoafisicaDto} from '../../../model/pessoafisica-dto';
-import {EmpresaDto} from '../../../model/empresa-dto';
 import {AuthGuardService} from '../../guards/auth.guard.service';
 
 @Component({
@@ -21,7 +20,7 @@ export class PessoafisicaComponent implements OnInit {
   ) {
   }
 
-  displayedColumns: string[] = ['idPess', 'nome', 'cpf', 'sexo', 'idade', 'acoes'];
+  displayedColumns: string[] = ['idPess', 'nome', 'cpf', 'sexo', 'idade', 'grauEsco', 'formaAcade', 'acoes'];
 
   pessoafisica: PessoafisicaDto[];
 

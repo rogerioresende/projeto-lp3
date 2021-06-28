@@ -16,8 +16,9 @@ public class Curriculo implements Serializable{
     private String infoTec;
     private String formaAcade;
 
+    public Curriculo() {
 
-
+    }
 
     public long getIdCurr() {
         return idCurr;
@@ -51,11 +52,4 @@ public class Curriculo implements Serializable{
         this.formaAcade = formaAcade;
     }
 
-    public Curriculo() {
-
-
-    }
-
-    public void setPessoaFifica(PessoaFisica pessoaFisica) {
-    }
 }
